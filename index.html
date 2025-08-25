@@ -1,0 +1,793 @@
+<!doctype html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Official IELTS Speaking Guide</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
+    <style>
+        /* --- General & Smooth Scroll --- */
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 70px; /* Offset for sticky navbar */
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        /* --- Visual Map SVG --- */
+        .visual-map-svg {
+            width: 100%;
+            height: auto;
+        }
+        .visual-map-svg .node rect {
+            fill: var(--bs-secondary-bg);
+            stroke: var(--bs-border-color);
+            stroke-width: 2;
+            rx: 8;
+        }
+        .visual-map-svg .node text {
+            font-size: 14px;
+            font-weight: 500;
+            fill: var(--bs-body-color);
+            text-anchor: middle;
+        }
+        .visual-map-svg .connector {
+            stroke: var(--bs-primary);
+            stroke-width: 2;
+            fill: none;
+        }
+        .visual-map-svg .node:hover rect {
+            fill: var(--bs-primary-bg-subtle);
+            stroke: var(--bs-primary);
+        }
+
+        /* --- Print Styles --- */
+        @media print {
+            body {
+                font-size: 12pt;
+            }
+            .no-print, .navbar, #hero .btn-group, .theme-toggler {
+                display: none !important;
+            }
+            .card {
+                border: 1px solid #ddd !important;
+                box-shadow: none !important;
+                page-break-inside: avoid;
+            }
+            section {
+                padding-top: 2rem !important;
+                page-break-before: always;
+            }
+            #hero {
+                page-break-before: auto;
+            }
+            a {
+                text-decoration: none;
+                color: #000;
+            }
+            .accordion-button::after {
+                display: none; /* Hide accordion arrows */
+            }
+            .accordion-collapse {
+                display: block !important; /* Show all accordion content */
+            }
+            .accordion-body {
+                border-top: 1px solid #dee2e6;
+            }
+        }
+
+        /* --- Helper Classes --- */
+        .copy-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+    <script>
+      (() => {
+        'use strict'
+    
+        const getStoredTheme = () => localStorage.getItem('theme')
+        const setStoredTheme = theme => localStorage.setItem('theme', theme)
+    
+        const getPreferredTheme = () => {
+          const storedTheme = getStoredTheme()
+          if (storedTheme) {
+            return storedTheme
+          }
+          return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+        }
+    
+        const setTheme = theme => {
+          if (theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.setAttribute('data-bs-theme', 'dark')
+          } else {
+            document.documentElement.setAttribute('data-bs-theme', theme)
+          }
+        }
+    
+        setTheme(getPreferredTheme())
+    
+        window.addEventListener('DOMContentLoaded', () => {
+          document.querySelectorAll('[data-bs-theme-value]')
+            .forEach(toggle => {
+              toggle.addEventListener('click', () => {
+                const theme = toggle.getAttribute('data-bs-theme-value')
+                setStoredTheme(theme)
+                setTheme(theme)
+              })
+            })
+        })
+      })()
+    </script>
+
+    <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top border-bottom">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#"><i class="bi bi-mic-fill me-2"></i>IELTS Speaking Guide</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Guide Sections</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                        <li class="nav-item"><a class="nav-link" href="#map">Map</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#descriptors">Descriptors</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#vocab">Vocabulary</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#part1">Part 1</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#part2">Part 2</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#part3">Part 3</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#templates">Templates</a></li>
+                    </ul>
+                    <div class="d-flex align-items-center">
+                        <button class="btn btn-outline-secondary me-2 no-print" onclick="window.print()"><i class="bi bi-printer-fill"></i></button>
+                        <div class="dropdown">
+                          <button class="btn btn-outline-secondary dropdown-toggle theme-toggler" type="button" id="themeDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-sun-fill"></i>
+                          </button>
+                          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="themeDropdown">
+                            <li><button class="dropdown-item" type="button" data-bs-theme-value="light"><i class="bi bi-sun-fill me-2"></i> Light</button></li>
+                            <li><button class="dropdown-item" type="button" data-bs-theme-value="dark"><i class="bi bi-moon-stars-fill me-2"></i> Dark</button></li>
+                          </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container py-5">
+        
+        <section id="hero" class="text-center">
+            <h1 class="display-4 fw-bold">The Official IELTS Speaking Guide</h1>
+            <p class="lead col-lg-8 mx-auto">Your complete, beginner-friendly roadmap to achieving a Band 9 score. Master the structure, vocabulary, and fluency required for success.</p>
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center my-4 btn-group">
+                <button class="btn btn-primary btn-lg px-4 gap-3" onclick="window.print()"><i class="bi bi-file-earmark-pdf-fill me-2"></i>Save as PDF</button>
+                <a href="#map" class="btn btn-outline-secondary btn-lg px-4"><i class="bi bi-diagram-3-fill me-2"></i>Jump to Visual Map</a>
+            </div>
+             <div class="card mt-5 text-start">
+                <div class="card-header fw-bold"><i class="bi bi-compass me-2"></i>How to Use This Guide</div>
+                <div class="card-body">
+                    <p class="card-text">This guide is designed for sequential learning. Follow the visual map below.
+                        <br><strong>1. Understand the Goal:</strong> Start with the Band Descriptors to know what examiners are looking for.
+                        <br><strong>2. Build Your Tools:</strong> Learn the Vocabulary and Sentence Structures.
+                        <br><strong>3. Practice Systematically:</strong> Apply your tools to Part 1, Part 2, and Part 3 strategies.
+                        <br><strong>4. Consolidate:</strong> Use the Templates and Final Checklist to solidify your skills.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="map" class="mt-5">
+            <div class="card">
+                <div class="card-header h5"><i class="bi bi-diagram-3-fill me-2"></i>Your Learning Roadmap</div>
+                <div class="card-body text-center p-4">
+                    <svg class="visual-map-svg" viewBox="0 0 800 400" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="svg-title svg-desc">
+                        <title id="svg-title">IELTS Speaking Guide Learning Flowchart</title>
+                        <desc id="svg-desc">A flowchart showing the learning path: Band Descriptors, to Vocabulary, to Part 1, Part 2, Part 3, and finally Templates and Checklist.</desc>
+                        <defs>
+                            <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--bs-primary)" />
+                            </marker>
+                        </defs>
+                        
+                        <a href="#descriptors" class="node" aria-label="Scroll to Band Descriptors section">
+                            <g>
+                                <rect x="50" y="50" width="150" height="60"></rect>
+                                <text x="125" y="85">Band Descriptors</text>
+                            </g>
+                        </a>
+                        <a href="#vocab" class="node" aria-label="Scroll to Vocabulary Toolbox section">
+                            <g>
+                                <rect x="325" y="50" width="150" height="60"></rect>
+                                <text x="400" y="85">Vocab Toolbox</text>
+                            </g>
+                        </a>
+                         <a href="#part1" class="node" aria-label="Scroll to Part 1 section">
+                            <g>
+                                <rect x="600" y="50" width="150" height="60"></rect>
+                                <text x="675" y="85">Part 1: Quick Answers</text>
+                            </g>
+                        </a>
+                        <a href="#part2" class="node" aria-label="Scroll to Part 2 section">
+                            <g>
+                                <rect x="600" y="170" width="150" height="60"></rect>
+                                <text x="675" y="205">Part 2: STAR x WHWE</text>
+                            </g>
+                        </a>
+                         <a href="#part3" class="node" aria-label="Scroll to Part 3 section">
+                            <g>
+                                <rect x="325" y="170" width="150" height="60"></rect>
+                                <text x="400" y="205">Part 3: Expansion</text>
+                            </g>
+                        </a>
+                        <a href="#templates" class="node" aria-label="Scroll to Templates and Checklist section">
+                             <g>
+                                <rect x="50" y="290" width="150" height="60"></rect>
+                                <text x="125" y="325">Templates & Checklist</text>
+                            </g>
+                        </a>
+                        
+                        <path class="connector" d="M 205 80 H 320" marker-end="url(#arrow)"></path>
+                        <path class="connector" d="M 480 80 H 595" marker-end="url(#arrow)"></path>
+                        <path class="connector" d="M 675 115 V 165" marker-end="url(#arrow)"></path>
+                        <path class="connector" d="M 595 200 H 480" marker-end="url(#arrow)"></path>
+                        <path class="connector" d="M 400 235 V 280 A 20 20 0 0 0 380 300 H 205" marker-end="url(#arrow)"></path>
+                    </svg>
+                </div>
+            </div>
+        </section>
+
+        <section id="descriptors" class="mt-5">
+            <h2 class="mb-4"><i class="bi bi-rulers me-2"></i>Band Descriptors: The Scoring Rules</h2>
+            <div class="card">
+                <div class="card-body">
+                    <p class="card-text">To score high, you must understand the four criteria the examiner uses. Here they are in plain English.</p>
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Criterion</th>
+                                    <th>Plain English Explanation</th>
+                                    <th>High-Scoring Cues (Band 7+)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="fw-bold">Fluency & Coherence</td>
+                                    <td>How smoothly and logically you speak. Avoid long pauses or self-correction. Connect your ideas well.</td>
+                                    <td>Speaks at length without noticeable effort. Uses a range of connectors (e.g., <em>furthermore, as a result, having said that</em>).</td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-bold">Lexical Resource</td>
+                                    <td>Your vocabulary. Use a range of words accurately and effectively. Show you know less common words and phrases.</td>
+                                    <td>Uses precise, topic-specific vocabulary. Can paraphrase ideas successfully. Uses idiomatic language naturally.</td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-bold">Grammatical Range & Accuracy</td>
+                                    <td>Your grammar. Use a mix of simple and complex sentences. Most sentences should be error-free.</td>
+                                    <td>Frequently produces error-free sentences. Uses a variety of complex structures (e.g., conditionals, relative clauses, compound sentences).</td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-bold">Pronunciation</td>
+                                    <td>How clear and easy to understand you are. It's not about your accent, but about clear sounds, stress, and intonation.</td>
+                                    <td>Easy to understand throughout. Rhythm of English is present. Uses stress and intonation to convey meaning.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-md-6">
+                            <div class="card h-100 border-success">
+                                <div class="card-header bg-success text-white fw-bold"><i class="bi bi-check-circle-fill me-2"></i>Do These</div>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">Extend your answers</li>
+                                    <li class="list-group-item">Use connecting phrases</li>
+                                    <li class="list-group-item">Paraphrase the question</li>
+                                    <li class="list-group-item">Use a range of tenses</li>
+                                    <li class="list-group-item">Vary your intonation</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mt-3 mt-md-0">
+                            <div class="card h-100 border-danger">
+                                <div class="card-header bg-danger text-white fw-bold"><i class="bi bi-x-circle-fill me-2"></i>Don't Do These</div>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">Give 'yes'/'no' answers</li>
+                                    <li class="list-group-item">Memorize entire scripts</li>
+                                    <li class="list-group-item">Worry about your accent</li>
+                                    <li class="list-group-item">Use vocabulary you don't know</li>
+                                    <li class="list-group-item">Panic if you make a mistake</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="vocab" class="mt-5">
+            <h2 class="mb-4"><i class="bi bi-tools me-2"></i>Vocabulary Toolbox: Simple & Powerful Words</h2>
+            <div class="card">
+                <div class="card-body">
+                    <p>Impress the examiner with precise, easy-to-pronounce words. Learn one topic per day.</p>
+                    <div class="accordion" id="vocabAccordion">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingGeneral">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseGeneral" aria-expanded="false" aria-controls="collapseGeneral">
+                                    <strong><i class="bi bi-star-fill me-2"></i>General / Multi-use</strong>
+                                </button>
+                            </h2>
+                            <div id="collapseGeneral" class="accordion-collapse collapse" aria-labelledby="headingGeneral" data-bs-parent="#vocabAccordion">
+                                <div class="accordion-body">
+                                    <dl>
+                                        <dt>Nuance</dt><dd>A subtle difference in meaning or expression.<br><em>Example: I appreciate the <strong>nuance</strong> in his argument; it's not a simple issue.</em></dd>
+                                        <dt>Foster</dt><dd>To encourage the development of something.<br><em>Example: Good teachers <strong>foster</strong> a love of learning in their students.</em></dd>
+                                        <dt>Candid</dt><dd>Truthful and straightforward; frank.<br><em>Example: To be <strong>candid</strong>, I wasn't impressed with the movie.</em></dd>
+                                        <dt>Viable</dt><dd>Capable of working successfully; feasible.<br><em>Example: Working from home is a <strong>viable</strong> option for many employees now.</em></dd>
+                                        <dt>Repress</dt><dd>To hold back or restrain.<br><em>Example: It's unhealthy to <strong>repress</strong> your feelings of disappointment.</em></dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingStudy">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseStudy" aria-expanded="false" aria-controls="collapseStudy">
+                                    <strong><i class="bi bi-book-fill me-2"></i>Home, Study & Work</strong>
+                                </button>
+                            </h2>
+                            <div id="collapseStudy" class="accordion-collapse collapse" aria-labelledby="headingStudy" data-bs-parent="#vocabAccordion">
+                                <div class="accordion-body">
+                                    <dl>
+                                        <dt>Conducive</dt><dd>Making a certain situation or outcome likely or possible.<br><em>Example: A quiet environment is <strong>conducive</strong> to studying effectively.</em></dd>
+                                        <dt>Pedagogy</dt><dd>The method and practice of teaching.<br><em>Example: The university is known for its innovative <strong>pedagogy</strong>.</em></dd>
+                                        <dt>Diligent</dt><dd>Showing care and conscientiousness in one's work or duties.<br><em>Example: She was a <strong>diligent</strong> student, always completing her assignments on time.</em></dd>
+                                        <dt>Autonomy</dt><dd>The right or condition of self-government; independence.<br><em>Example: I enjoy the <strong>autonomy</strong> of my job; I can manage my own schedule.</em></dd>
+                                        <dt>Collaborate</dt><dd>To work jointly on an activity or project.<br><em>Example: The marketing and sales teams often <strong>collaborate</strong> on new campaigns.</em></dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTravel">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTravel" aria-expanded="false" aria-controls="collapseTravel">
+                                    <strong><i class="bi bi-airplane-fill me-2"></i>Travel & Technology</strong>
+                                </button>
+                            </h2>
+                            <div id="collapseTravel" class="accordion-collapse collapse" aria-labelledby="headingTravel" data-bs-parent="#vocabAccordion">
+                                <div class="accordion-body">
+                                    <dl>
+                                        <dt>Ubiquitous</dt><dd>Present, appearing, or found everywhere.<br><em>Example: Smartphones have become <strong>ubiquitous</strong> in modern society.</em></dd>
+                                        <dt>Itinerary</dt><dd>A planned route or journey.<br><em>Example: We planned a detailed <strong>itinerary</strong> for our trip to Japan.</em></dd>
+                                        <dt>Immersive</dt><dd>Engaging deeply; involving all senses.<br><em>Example: Virtual reality offers a highly <strong>immersive</strong> gaming experience.</em></dd>
+                                        <dt>Serene</dt><dd>Calm, peaceful, and untroubled.<br><em>Example: We found a <strong>serene</strong> lake hidden in the mountains.</em></dd>
+                                        <dt>Intuitive</dt><dd>Easy to use and understand, without needing instruction.<br><em>Example: The new app has a very <strong>intuitive</strong> user interface.</em></dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+                         <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingHealth">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHealth" aria-expanded="false" aria-controls="collapseHealth">
+                                    <strong><i class="bi bi-heart-pulse-fill me-2"></i>Health & Environment</strong>
+                                </button>
+                            </h2>
+                            <div id="collapseHealth" class="accordion-collapse collapse" aria-labelledby="headingHealth" data-bs-parent="#vocabAccordion">
+                                <div class="accordion-body">
+                                    <dl>
+                                        <dt>Alleviate</dt><dd>To make suffering or a problem less severe.<br><em>Example: Taking a walk can help <strong>alleviate</strong> stress.</em></dd>
+                                        <dt>Sustainable</dt><dd>Able to be maintained at a certain rate or level; conserving an ecological balance.<br><em>Example: We must find <strong>sustainable</strong> sources of energy to protect our planet.</em></dd>
+                                        <dt>Holistic</dt><dd>Considering the whole of something, not just its parts.<br><em>Example: A <strong>holistic</strong> approach to health includes diet, exercise, and mental well-being.</em></dd>
+                                        <dt>Deteriorate</dt><dd>To become progressively worse.<br><em>Example: Air quality in the city tends to <strong>deteriorate</strong> during winter.</em></dd>
+                                        <dt>Proponent</dt><dd>A person who advocates for a theory, proposal, or project.<br><em>Example: I am a strong <strong>proponent</strong> of recycling and waste reduction.</em></dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="part1" class="mt-5">
+            <h2 class="mb-4"><i class="bi bi-chat-dots-fill me-2"></i>Part 1: Quick Impact Strategy</h2>
+            <div class="card">
+                <div class="card-body">
+                    <p>Part 1 is a warm-up. Your goal is to be friendly and direct. Answer the question and add one extra detail using a compound sentence.</p>
+                    <div class="alert alert-info" role="alert">
+                        <i class="bi bi-mic-fill me-2"></i><strong>Pronunciation Tip:</strong> Emphasize keywords to sound more natural. For example, in "I enjoy it, <strong>but</strong> it can be tiring," stress the word "but" to show contrast.
+                    </div>
+                    
+                    <div class="position-relative p-3 border rounded mb-3">
+                        <button class="btn btn-sm btn-outline-secondary copy-btn no-print" data-copy-target="#p1-answer1">Copy</button>
+                        <p><strong>Q: Do you like reading?</strong></p>
+                        <p id="p1-answer1">Definitely. I've always been a keen reader, <strong>not only because</strong> it's a great way to relax, <strong>but also because</strong> it helps expand my vocabulary and understanding of the world.</p>
+                    </div>
+
+                    <div class="position-relative p-3 border rounded mb-3">
+                        <button class="btn btn-sm btn-outline-secondary copy-btn no-print" data-copy-target="#p1-answer2">Copy</button>
+                        <p><strong>Q: What kind of music do you listen to?</strong></p>
+                        <p id="p1-answer2">My taste is quite eclectic, so I listen to a bit of everything. <strong>Although</strong> I enjoy upbeat pop music when I'm exercising, <strong>yet</strong> I usually prefer calming classical music while I'm studying.</p>
+                    </div>
+                     
+                    <div class="position-relative p-3 border rounded">
+                        <button class="btn btn-sm btn-outline-secondary copy-btn no-print" data-copy-target="#p1-answer3">Copy</button>
+                        <p><strong>Q: Is your hometown a good place for tourists?</strong></p>
+                        <p id="p1-answer3">Yes, I'd say so. Nagpur is famous for its oranges and tiger reserves, <strong>so</strong> it attracts a lot of nature lovers. <strong>Furthermore</strong>, it has a few historical sites that offer a glimpse into the region's rich past.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="part2" class="mt-5">
+            <h2 class="mb-4"><i class="bi bi-card-text me-2"></i>Part 2: The Cue Card (Dual Framework)</h2>
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">The 1-Minute Preparation Plan</h5>
+                    <p>You have 1 minute to prepare. Don't write sentences! Use a dual framework to quickly generate ideas.</p>
+                    <div class="row text-center">
+                        <div class="col-md-6">
+                            <div class="p-3 border bg-body-secondary rounded h-100">
+                                <h6 class="fw-bold">Framework 1: WH-Questions (Top-hand)</h6>
+                                <p>Quickly answer the questions on the cue card.</p>
+                                <ul class="list-unstyled">
+                                    <li><strong>Who?</strong> (Who was involved?)</li>
+                                    <li><strong>What?</strong> (What happened?)</li>
+                                    <li><strong>Where/When?</strong> (Set the scene)</li>
+                                    <li><strong>How/Why?</strong> (Explain feelings/reasons)</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mt-3 mt-md-0">
+                            <div class="p-3 border bg-body-secondary rounded h-100">
+                                <h6 class="fw-bold">Framework 2: STAR Method (Left-hand)</h6>
+                                <p>Structure your notes into a story.</p>
+                                <ul class="list-unstyled">
+                                    <li><strong>S</strong> - Situation (Background)</li>
+                                    <li><strong>T</strong> - Task (The goal/problem)</li>
+                                    <li><strong>A</strong> - Action (What you did)</li>
+                                    <li><strong>R</strong> - Result (The outcome & feelings)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="mt-5 mb-3">Worked Examples</h3>
+            <div class="accordion" id="part2Accordion">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="p2heading1">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#p2collapse1" aria-expanded="true" aria-controls="p2collapse1">
+                            <strong>Example 1: Describe a time you solved a problem.</strong>
+                        </button>
+                    </h2>
+                    <div id="p2collapse1" class="accordion-collapse collapse show" aria-labelledby="p2heading1" data-bs-parent="#part2Accordion">
+                        <div class="accordion-body">
+                            <p><strong>Your 1-Minute Notes:</strong></p>
+                            <ul>
+                                <li><strong>S:</strong> College project, team, tight deadline. Main software crashed.</li>
+                                <li><strong>T:</strong> Find alternative fast, submit on time. Morale was low.</li>
+                                <li><strong>A:</strong> Researched open-source software. Held quick meeting, re-assigned tasks. Stayed up late.</li>
+                                <li><strong>R:</strong> Submitted on time! Got a good grade. Learned to be adaptable, felt relieved and proud.</li>
+                            </ul>
+                            <p><strong>Target Vocabulary:</strong> viable, collaborate, diligent, alleviate</p>
+                            <hr>
+                            <div class="position-relative">
+                                <button class="btn btn-sm btn-outline-secondary copy-btn no-print" data-copy-target="#p2-answer1">Copy</button>
+                                <p id="p2-answer1">I'd like to talk about a time during my university days when I had to solve a rather stressful problem.
+                                <br><br>
+                                <strong>(Situation)</strong> I was part of a team of four for a major design project, and we were working against a very tight deadline. The main issue arose when the specialized software we were all using suddenly crashed and our license expired. We couldn't get it working again, and panic started to set in because our submission was due in just two days. The team's morale began to <strong>deteriorate</strong> quickly.
+                                <br><br>
+                                <strong>(Task)</strong> My immediate task was to find a <strong>viable</strong> alternative that wouldn't require us to restart the entire project from scratch. I also had to convince my team that we could still finish on time, essentially to <strong>alleviate</strong> their anxiety so we could work productively.
+                                <br><br>
+                                <strong>(Action)</strong> The first thing I did was spend about an hour researching open-source alternatives. Luckily, I found one that was compatible with our existing files. I quickly installed it and tested it to make sure it worked. Then, I called a brief team meeting where we decided to <strong>collaborate</strong> intensely. I divided the remaining work into smaller, manageable chunks and we all were incredibly <strong>diligent</strong>, even pulling an all-nighter to get everything done.
+                                <br><br>
+                                <strong>(Result)</strong> In the end, we managed to submit the project just a few hours before the deadline. Not only did we avoid a penalty, but we also received a high grade. The experience taught me the importance of staying calm under pressure and being adaptable. I felt an immense sense of relief and pride in how we came together to overcome the obstacle.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="p2heading2">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#p2collapse2" aria-expanded="false" aria-controls="p2collapse2">
+                            <strong>Example 2: Describe a memorable journey you made.</strong>
+                        </button>
+                    </h2>
+                    <div id="p2collapse2" class="accordion-collapse collapse" aria-labelledby="p2heading2" data-bs-parent="#part2Accordion">
+                         <div class="accordion-body">
+                            <p><strong>Your 1-Minute Notes:</strong></p>
+                            <ul>
+                                <li><strong>S:</strong> First solo trip, went to the Himalayas. <YOUR DESTINATION>.</li>
+                                <li><strong>T:</strong> Wanted adventure, test independence.</li>
+                                <li><strong>A:</strong> Took an overnight bus, trekked for days, stayed in small guesthouses, met other travelers.</li>
+                                <li><strong>R:</strong> Breathtaking views, felt empowered. Fostered a love for travel. Unforgettable.</li>
+                            </ul>
+                            <p><strong>Target Vocabulary:</strong> itinerary, serene, foster, immersive</p>
+                            <hr>
+                            <div class="position-relative">
+                                <button class="btn btn-sm btn-outline-secondary copy-btn no-print" data-copy-target="#p2-answer2">Copy</button>
+                                <p id="p2-answer2">A journey that remains etched in my memory is my first solo trip to the mountains of Himachal Pradesh a few years ago.
+                                <br><br>
+                                <strong>(Situation)</strong> I had just finished my college exams and felt a strong urge for an adventure. Unlike previous family holidays which always had a fixed <strong>itinerary</strong>, this time I wanted complete freedom. I decided to travel alone to a small, remote village called <YOUR VILLAGE NAME> which is known for its trekking routes.
+                                <br><br>
+                                <strong>(Task)</strong> The main purpose of this journey was not just to see beautiful landscapes, but also to challenge myself and step out of my comfort zone. I wanted to see if I could navigate and manage everything on my own, which was both an exciting and a slightly daunting prospect.
+                                <br><br>
+                                <strong>(Action)</strong> The journey began with a rather long overnight bus ride. Once I reached the mountains, the experience became truly <strong>immersive</strong>. I spent my days trekking through dense pine forests and my evenings in quaint little guesthouses, talking to locals and other travelers. The air was crisp and clean, and the environment was incredibly <strong>serene</strong>, which was a stark contrast to my bustling city life.
+                                <br><br>
+                                <strong>(Result)</strong> The outcome of this journey was profound. Waking up to the sight of snow-capped peaks was awe-inspiring and gave me a new perspective on things. I came back feeling far more confident and independent. This trip really helped to <strong>foster</strong> a lifelong passion for travel and exploration in me, and for that reason, it will always be a very special memory.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="p2heading3">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#p2collapse3" aria-expanded="false" aria-controls="p2collapse3">
+                            <strong>Example 3: Describe a teacher who helped you.</strong>
+                        </button>
+                    </h2>
+                    <div id="p2collapse3" class="accordion-collapse collapse" aria-labelledby="p2heading3" data-bs-parent="#part2Accordion">
+                         <div class="accordion-body">
+                           <p><strong>Your 1-Minute Notes:</strong></p>
+                            <ul>
+                                <li><strong>S:</strong> High school, struggling with Physics. Hated the subject.</li>
+                                <li><strong>T:</strong> Pass the final exam, understand the core concepts.</li>
+                                <li><strong>A:</strong> Mr. <YOUR TEACHER'S NAME>, used real-world examples, extra help after class. Patient pedagogy.</li>
+                                <li><strong>R:</strong> Passed with a good grade. Started to enjoy the subject. He made it less intimidating.</li>
+                            </ul>
+                            <p><strong>Target Vocabulary:</strong> pedagogy, candid, conducive, proponent</p>
+                            <hr>
+                            <div class="position-relative">
+                                <button class="btn btn-sm btn-outline-secondary copy-btn no-print" data-copy-target="#p2-answer3">Copy</button>
+                                <p id="p2-answer3">I've been fortunate to have many good teachers, but one who stands out is my high school physics teacher, Mr. Sharma.
+                                <br><br>
+                                <strong>(Situation)</strong> In my 11th grade, I found physics to be an incredibly difficult and abstract subject. I was struggling to understand the core concepts, and to be perfectly <strong>candid</strong>, I had started to dislike it immensely. My grades were slipping, and I was worried about my final exams.
+                                <br><br>
+                                <strong>(Task)</strong> My main goal was simply to pass the class, but deep down I knew I needed to actually understand the material, not just memorize formulas. I needed someone to make the subject approachable and less intimidating for me.
+                                <br><br>
+                                <strong>(Action)</strong> This is where Mr. Sharma made a huge difference. His <strong>pedagogy</strong> was unlike any other teacher's. Instead of just writing equations on the board, he would use real-world examples, like the physics of cricket or how a bicycle works, to explain complex theories. He was a huge <strong>proponent</strong> of hands-on learning. He also noticed I was struggling and offered to stay after class to help me. His patient and encouraging approach created a learning environment that was very <strong>conducive</strong> to asking questions without feeling foolish.
+                                <br><br>
+                                <strong>(Result)</strong> As a result of his guidance, the subject started to click. I not only passed my physics exam with a surprisingly good score, but I also began to appreciate the beauty of the subject. He taught me that any difficult topic can be mastered with the right approach and a little bit of curiosity. His help was instrumental during a critical time in my education.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="part3" class="mt-5">
+            <h2 class="mb-4"><i class="bi bi-arrows-angle-expand me-2"></i>Part 3: Discussion Expansion</h2>
+            <div class="card">
+                <div class="card-body">
+                    <p>In Part 3, you move from "you" to "people in general". Your goal is to discuss abstract ideas. Use these patterns and sentence frames to structure your answers like a mini-essay.</p>
+                    
+                    <div class="card mb-3">
+                        <div class="card-header fw-bold">1. Contrast & Compare Pattern</div>
+                        <div class="card-body">
+                            <p>Use this to discuss two sides of an issue.</p>
+                            <div class="position-relative p-2 border rounded bg-body-tertiary">
+                                <button class="btn btn-sm btn-outline-secondary copy-btn no-print" data-copy-target="#sf1">Copy</button>
+                                <ul class="list-unstyled mb-0" id="sf1">
+                                    <li><i class="bi bi-chat-right-quote-fill me-2"></i>On the one hand, many people believe that...</li>
+                                    <li><i class="bi bi-chat-right-quote-fill me-2"></i>However, on the other hand, a significant drawback is...</li>
+                                    <li><i class="bi bi-chat-right-quote-fill me-2"></i>While it's true that..., we must also consider...</li>
+                                    <li><i class="bi bi-chat-right-quote-fill me-2"></i>A key distinction between the past and now is...</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card mb-3">
+                        <div class="card-header fw-bold">2. Cause & Effect Pattern</div>
+                        <div class="card-body">
+                            <p>Use this to explain the reasons for a trend or situation.</p>
+                             <div class="position-relative p-2 border rounded bg-body-tertiary">
+                                <button class="btn btn-sm btn-outline-secondary copy-btn no-print" data-copy-target="#sf2">Copy</button>
+                                <ul class="list-unstyled mb-0" id="sf2">
+                                    <li><i class="bi bi-chat-right-quote-fill me-2"></i>This is largely due to the fact that...</li>
+                                    <li><i class="bi bi-chat-right-quote-fill me-2"></i>One of the primary causes of this phenomenon is...</li>
+                                    <li><i class="bi bi-chat-right-quote-fill me-2"></i>As a direct consequence, we are now seeing...</li>
+                                    <li><i class="bi bi-chat-right-quote-fill me-2"></i>This trend has led to several significant outcomes, such as...</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header fw-bold">3. Example & Conclusion Pattern</div>
+                        <div class="card-body">
+                            <p>Use this to support your opinion with a clear example.</p>
+                             <div class="position-relative p-2 border rounded bg-body-tertiary">
+                                <button class="btn btn-sm btn-outline-secondary copy-btn no-print" data-copy-target="#sf3">Copy</button>
+                                <ul class="list-unstyled mb-0" id="sf3">
+                                    <li><i class="bi bi-chat-right-quote-fill me-2"></i>From my perspective, I believe that...</li>
+                                    <li><i class="bi bi-chat-right-quote-fill me-2"></i>A pertinent example of this would be...</li>
+                                    <li><i class="bi bi-chat-right-quote-fill me-2"></i>To illustrate this point, we can look at...</li>
+                                    <li><i class="bi bi-chat-right-quote-fill me-2"></i>Therefore, it's clear that in the future, we might see...</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="templates" class="mt-5">
+            <h2 class="mb-4"><i class="bi bi-file-earmark-text-fill me-2"></i>Beginner Templates: Fill-in-the-Blanks</h2>
+            <div class="card">
+                <div class="card-body">
+                    <p>Use these structures as training wheels. Practice by filling them in, then try to speak without them.</p>
+                     <div class="accordion" id="templateAccordion">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="template1-h">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#template1-c" aria-expanded="false" aria-controls="template1-c"><strong>Part 1: The A+B Formula (Answer + Because)</strong></button>
+                            </h2>
+                            <div id="template1-c" class="accordion-collapse collapse" aria-labelledby="template1-h" data-bs-parent="#templateAccordion">
+                                <div class="accordion-body position-relative">
+                                    <button class="btn btn-sm btn-outline-secondary copy-btn no-print" data-copy-target="#t1">Copy</button>
+                                    <p id="t1"><em>(Direct Answer).</em> I feel this way mainly because <em>(Your Reason)</em>, and what's more, <em>(An Extra Detail/Example)</em>.</p>
+                                    <hr>
+                                    <p><strong>Example:</strong> <em>(Q: Do you like cooking?)</em> <br>Yes, quite a bit. I feel this way mainly because it helps me relax after a long day, and what's more, it's a great way to ensure I'm eating healthy, home-cooked food.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="template2-h">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#template2-c" aria-expanded="false" aria-controls="template2-c"><strong>Part 2: The Story Spine</strong></button>
+                            </h2>
+                            <div id="template2-c" class="accordion-collapse collapse" aria-labelledby="template2-h" data-bs-parent="#templateAccordion">
+                                <div class="accordion-body position-relative">
+                                    <button class="btn btn-sm btn-outline-secondary copy-btn no-print" data-copy-target="#t2">Copy</button>
+                                    <p id="t2">I'm going to tell you about a time when <em>(Introduction: what happened)</em>.<br><br>This took place about <em>(When)</em> in <em>(Where)</em>. At the time, the situation was that <em>(S - Situation)</em>.<br><br>The main challenge/goal was to <em>(T - Task)</em>.<br><br>So, what I/we decided to do was <em>(A - Action Step 1)</em>, and then I/we <em>(A - Action Step 2)</em>.<br><br>In the end, the result was that <em>(R - Result)</em>, and it made me feel <em>(Your Feeling)</em> because <em>(The Lesson Learned)</em>.</p>
+                                </div>
+                            </div>
+                        </div>
+                         <div class="accordion-item">
+                            <h2 class="accordion-header" id="template3-h">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#template3-c" aria-expanded="false" aria-controls="template3-c"><strong>Part 3: The P.E.E.L. Method (Point, Explain, Example, Link)</strong></button>
+                            </h2>
+                            <div id="template3-c" class="accordion-collapse collapse" aria-labelledby="template3-h" data-bs-parent="#templateAccordion">
+                                <div class="accordion-body position-relative">
+                                    <button class="btn btn-sm btn-outline-secondary copy-btn no-print" data-copy-target="#t3">Copy</button>
+                                    <p id="t3"><strong>(Point)</strong> In my opinion, I believe that <em>(Your Main Point)</em>.<br><br><strong>(Explain)</strong> What I mean by this is that... <em>(Explain your point in more detail)</em>. This is largely because <em>(Give a reason)</em>.<br><br><strong>(Example)</strong> For instance, we can see this in the case of <em>(Provide a real-world example)</em>.<br><br><strong>(Link)</strong> So, that's why I think it's clear that <em>(Restate your point/conclude)</em>.</p>
+                                </div>
+                            </div>
+                        </div>
+                     </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="checklist" class="mt-5">
+            <h2 class="mb-4"><i class="bi bi-check2-square me-2"></i>Final Band 9 Checklist</h2>
+            <div class="card">
+                <div class="card-body">
+                    <p>Before your test, review your practice recordings against this checklist.</p>
+                     <ul class="list-group">
+                        <li class="list-group-item list-group-item-secondary fw-bold">Fluency & Coherence</li>
+                        <li class="list-group-item"><input class="form-check-input me-2" type="checkbox" value="" id="c1">I spoke without too much hesitation or self-correction.</li>
+                        <li class="list-group-item"><input class="form-check-input me-2" type="checkbox" value="" id="c2">I used a variety of linking words (e.g., however, therefore, in addition).</li>
+                        <li class="list-group-item"><input class="form-check-input me-2" type="checkbox" value="" id="c3">I extended all my answers sufficiently.</li>
+
+                        <li class="list-group-item list-group-item-secondary fw-bold mt-3">Lexical Resource (Vocabulary)</li>
+                        <li class="list-group-item"><input class="form-check-input me-2" type="checkbox" value="" id="c4">I used some less common and topic-specific vocabulary correctly.</li>
+                        <li class="list-group-item"><input class="form-check-input me-2" type="checkbox" value="" id="c5">I paraphrased the question rather than repeating the examiner's words.</li>
+                        <li class="list-group-item"><input class="form-check-input me-2" type="checkbox" value="" id="c6">My word choice was precise and natural.</li>
+
+                        <li class="list-group-item list-group-item-secondary fw-bold mt-3">Grammatical Range & Accuracy</li>
+                        <li class="list-group-item"><input class="form-check-input me-2" type="checkbox" value="" id="c7">I used a mix of simple and complex sentences (e.g., sentences with 'although', 'which', 'if').</li>
+                        <li class="list-group-item"><input class="form-check-input me-2" type="checkbox" value="" id="c8">Most of my sentences were free from grammatical errors.</li>
+                        <li class="list-group-item"><input class="form-check-input me-2" type="checkbox" value="" id="c9">I used different tenses correctly.</li>
+
+                        <li class="list-group-item list-group-item-secondary fw-bold mt-3">Pronunciation</li>
+                        <li class="list-group-item"><input class="form-check-input me-2" type="checkbox" value="" id="c10">I was easy to understand throughout the test.</li>
+                        <li class="list-group-item"><input class="form-check-input me-2" type="checkbox" value="" id="c11">I used sentence stress to emphasize important words.</li>
+                        <li class="list-group-item"><input class="form-check-input me-2" type="checkbox" value="" id="c12">My intonation (the rise and fall of my voice) was natural and not monotonous.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="faq" class="mt-5">
+            <h2 class="mb-4"><i class="bi bi-question-circle-fill me-2"></i>Common Pitfalls & Fixes</h2>
+            <div class="accordion" id="faqAccordion">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="faq1-h">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq1-c" aria-expanded="false" aria-controls="faq1-c"><strong>What if I don't understand the question?</strong></button>
+                    </h2>
+                    <div id="faq1-c" class="accordion-collapse collapse" aria-labelledby="faq1-h" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            It's perfectly acceptable to ask for clarification. Don't pretend to understand. You can say: <br>
+                            - "Sorry, I didn't quite catch that. could you please repeat the question?"<br>
+                            - "By [keyword], do you mean...?"<br>
+                            - "I'm not familiar with that word. Could you please explain it?"
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="faq2-h">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2-c" aria-expanded="false" aria-controls="faq2-c"><strong>What if I make a grammar mistake?</strong></button>
+                    </h2>
+                    <div id="faq2-c" class="accordion-collapse collapse" aria-labelledby="faq2-h" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Don't panic. Everyone makes mistakes. If you notice it immediately, quickly correct it and move on. For example: "Yesterday I go... I mean, I <strong>went</strong> to the city." If you don't notice it, just keep going. Fluency is more important than 100% accuracy. The examiner is looking for your overall ability, not single errors.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="faq3-h">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3-c" aria-expanded="false" aria-controls="faq3-c"><strong>What if I run out of things to say in Part 2?</strong></button>
+                    </h2>
+                    <div id="faq3-c" class="accordion-collapse collapse" aria-labelledby="faq3-h" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            This is why the STAR framework is so helpful. Make sure you cover each part: Situation, Task, Action, and Result. The 'Result' part is excellent for extending your answer. Talk about how the experience made you feel, what you learned from it, and whether you would do it again. You can also add a future thought: "In the future, I hope to...".
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="study-plan" class="mt-5">
+            <div class="card text-center border-primary">
+                <div class="card-header bg-primary text-white fw-bold"><i class="bi bi-calendar-check-fill me-2"></i>Your 15-Minute Daily Routine</div>
+                <div class="card-body">
+                    <p class="card-text">Consistency is key. Spend just 15 minutes a day to see huge improvements.</p>
+                    <div class="row">
+                        <div class="col-md-4 mb-2"><span class="badge bg-secondary p-2">Day 1 & 4: Vocabulary</span><br>Learn one topic from the Vocab Toolbox. Create your own example sentences.</div>
+                        <div class="col-md-4 mb-2"><span class="badge bg-secondary p-2">Day 2 & 5: Part 1/3 Practice</span><br>Pick 3-4 questions. Record yourself answering using the sentence frames.</div>
+                        <div class="col-md-4 mb-2"><span class="badge bg-secondary p-2">Day 3 & 6: Part 2 Practice</span><br>Pick a cue card. Spend 1 min on notes (STAR), then speak for 2 mins and record.</div>
+                        <div class="col-12 mt-2"><span class="badge bg-success p-2">Day 7: Review</span><br>Listen to your recordings from the week. Use the Band 9 Checklist to find areas for improvement.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <footer class="py-4 mt-5 bg-body-tertiary">
+        <div class="container text-center">
+            <p class="mb-0 text-muted">&copy; 2025 IELTS Speaking Official Guide. For educational purposes only.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Initialize Bootstrap Tooltips for Glossary (if any were added)
+            const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+            const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+
+            // Copy to Clipboard functionality
+            document.querySelectorAll('.copy-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    const targetId = button.getAttribute('data-copy-target');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        navigator.clipboard.writeText(targetElement.innerText).then(() => {
+                            const originalText = button.innerHTML;
+                            button.innerHTML = 'Copied!';
+                            setTimeout(() => {
+                                button.innerHTML = originalText;
+                            }, 2000);
+                        }).catch(err => {
+                            console.error('Failed to copy: ', err);
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
